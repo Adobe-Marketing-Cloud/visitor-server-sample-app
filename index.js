@@ -2,8 +2,8 @@ var cookie = require("cookie");
 var express = require("express");
 var app = express();
 
-// var Visitor = require("visitor-js-server");
-// var visitor = new Visitor();
+var Visitor = require("visitor-js-server");
+var visitor = new Visitor();
 
 function generatePage(state) {
     var head = "<script>var visitorServerState = " + state + ";</script>";
@@ -15,7 +15,7 @@ app.get("/", function (req, res) {
     var amcvCookie = cookies.AMCV;
 
     // Target Payload: Either a SDID if no AMCV, othewise parse the cookie content into an object.
-    var visitorPayload = {test: "joe"};//visitor.generateVisitorPayload(amcvCookie);
+    var visitorPayload = visitor.generateVisitorPayload(amcvCookie);
     // TODO Here: Make Target call by passing the target payload.
 
     var pageHtml = generatePage(JSON.stringify(visitorPayload));
