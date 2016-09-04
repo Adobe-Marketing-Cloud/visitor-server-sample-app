@@ -14,9 +14,9 @@ app.get("/", function (req, res) {
     var cookies = cookie.parse(req.headers.cookie || "");
     var amcvCookie = cookies.AMCV;
 
-    // Target Payload: Either a SDID if no AMCV, othewise parse the cookie content into an object.
+    // Visitor ID Payload: Either a SDID if no AMCV, othewise parse the cookie content into an object.
     var visitorPayload = visitor.generateVisitorPayload(amcvCookie);
-    // TODO Here: Make Target call by passing the target payload.
+    // TODO Here: Make Target call by passing the visitor payload.
 
     var pageHtml = generatePage(JSON.stringify(visitorPayload));
     
@@ -36,5 +36,5 @@ app.get("/", function (req, res) {
 });
 
 app.listen(process.env.PORT || 5000, function () {
-    console.log("Listening on port 3000!");
+    console.log("Visitor Server Sample App is Running!");
 });
