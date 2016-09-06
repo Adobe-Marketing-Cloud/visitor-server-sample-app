@@ -9,7 +9,7 @@ const Home = ({ serverState }) => {
             </head>
             <body>
                 <div>
-                    <h1>React Server Side Rendering!</h1>
+                    <h1>Server Side Rendering!</h1>
                     <h3>Share server state with client: {serverState}</h3>
                 </div>
             </body>
