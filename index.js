@@ -8,19 +8,21 @@ var app = express();
 
 var React = require("react");
 var ReactDOMServer = require("react-dom/server");
-var HomeComponent = require("./components/home.jsx");
+var HomeComponent = React.createFactory(require("./components/home.jsx"));
 
 var Visitor = require("visitor-js-server");
 var visitor = new Visitor();
 
 const PORT = process.env.PORT || 5000;
 
+app.use(express.static("public"));
+
 function generatePage(state) {
     var html = ReactDOMServer.renderToString(
-        React.createElement(HomeComponent)
+        React.createElement(HomeComponent, { serverState: state })
     );
-    var serverSideState = "<h3>Share server state with client: " + state + "</h3>";
-    return html + serverSideState;
+    
+    return html;
 }
 
 app.get("/", function (req, res) {
