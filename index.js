@@ -1,13 +1,26 @@
+require("babel-register")({
+    presets: ["react"]
+});
+
 var cookie = require("cookie");
 var express = require("express");
 var app = express();
 
+var React = require("react");
+var ReactDOMServer = require("react-dom/server");
+var HomeComponent = require("./components/home.jsx");
+
 var Visitor = require("visitor-js-server");
 var visitor = new Visitor();
 
+const PORT = process.env.PORT || 5000;
+
 function generatePage(state) {
-    var head = "<script>var visitorServerState = " + state + ";</script>";
-    return "<html><head>" + head + "</head><body><h1>Share server state with client: " + state + "</h1></body>";
+    var html = ReactDOMServer.renderToString(
+        React.createElement(HomeComponent)
+    );
+    var serverSideState = "<h3>Share server state with client: " + state + "</h3>";
+    return html + serverSideState;
 }
 
 app.get("/", function (req, res) {
@@ -35,6 +48,6 @@ app.get("/", function (req, res) {
     res.status(200).send(pageHtml);
 });
 
-app.listen(process.env.PORT || 5000, function () {
-    console.log("Visitor Server Sample App is Running!");
+app.listen(PORT, function () {
+    console.log("Visitor Server Sample App is Running on port", PORT);
 });
