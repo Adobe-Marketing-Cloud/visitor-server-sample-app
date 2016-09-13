@@ -1,5 +1,6 @@
 body {
     padding: 50px;
-    background: pink;
-    font: 14px "Lucida Grande", Helvetica, Arial; 
+    background: aliceblue;
+    font: 14px "Lucida Grande", Helvetica, Arial;
+    text-shadow: 10px 10px lavender;
 }
