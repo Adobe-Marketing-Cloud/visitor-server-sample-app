@@ -40,7 +40,7 @@ app.get("/", function (req, res) {
     // MOCK: Create AMCV cookie! This would be done by the VisitorAPI.js client side!!
     if (!amcvCookie) {
         var oneWeekInSecond = 60 * 60 * 24 * 7;
-        res.cookie("AMCV", "MCMID|1234|MCAAMB|abcd1234|MCAAMLH|9", { maxAge: oneWeekInSecond });
+        res.cookie("AMCV", "MCMID-3143515|1234|MCAAMB|abcd1234|MCAAMLH|9", { maxAge: oneWeekInSecond });
     }
 
     res.set({
