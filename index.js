@@ -11,7 +11,7 @@ var ReactDOMServer = require("react-dom/server");
 var HomeComponent = React.createFactory(require("./components/home.jsx"));
 
 var Visitor = require("visitor-js-server");
-var visitor = new Visitor();
+var visitor = new Visitor("12345sampleapp");
 
 const PORT = process.env.PORT || 5000;
 
@@ -33,7 +33,9 @@ app.get("/", function (req, res) {
     var visitorPayload = visitor.generateVisitorPayload(amcvCookie);
     // TODO Here: Make Target call by passing the visitor payload.
 
-    var pageHtml = generatePage(JSON.stringify(visitorPayload));
+    var serverState = visitor.getState();
+
+    var pageHtml = generatePage(JSON.stringify(serverState));
     
     // MOCK: Create AMCV cookie! This would be done by the VisitorAPI.js client side!!
     if (!amcvCookie) {
