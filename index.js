@@ -17,9 +17,9 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.static("public"));
 
-function generatePage(state) {
+function generatePage(state, payload) {
     var html = ReactDOMServer.renderToString(
-        React.createElement(HomeComponent, { serverState: state })
+        React.createElement(HomeComponent, { serverState: state, payload })
     );
     
     return html;
@@ -35,7 +35,7 @@ app.get("/", function (req, res) {
 
     var serverState = visitor.getState();
 
-    var pageHtml = generatePage(JSON.stringify(serverState));
+    var pageHtml = generatePage(JSON.stringify(serverState), JSON.stringify(visitorPayload));
     
     // MOCK: Create AMCV cookie! This would be done by the VisitorAPI.js client side!!
     if (!amcvCookie) {
