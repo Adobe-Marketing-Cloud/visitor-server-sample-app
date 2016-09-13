@@ -3,6 +3,7 @@ const React = require("react");
 const Home = ({ serverState, payload }) => {
     serverState = JSON.parse(serverState);
     payload = JSON.parse(payload);
+
     return (
         <html>
             <head>
@@ -21,6 +22,12 @@ const Home = ({ serverState, payload }) => {
                 </div>
 
                 <script src="/js/VisitorAPI.js" />
+                <script dangerouslySetInnerHTML={{__html: `
+                    var orgId = '12345667898765432';
+                    var visitor = Visitor.getInstance(orgId);
+                    console.log(visitor);
+                    console.log(` + JSON.stringify(payload) + `);
+                `}} />
             </body>
         </html>
     );
