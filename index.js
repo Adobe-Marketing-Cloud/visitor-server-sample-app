@@ -11,6 +11,8 @@ var ReactDOMServer = require("react-dom/server");
 var HomeComponent = React.createFactory(require("./components/home.jsx"));
 
 var Visitor = require("visitor-js-server");
+var AuthState = Visitor.AuthState;
+
 var visitor = new Visitor("12345sampleapp");
 
 const PORT = process.env.PORT || 5000;
@@ -32,7 +34,7 @@ app.get("/", function (req, res) {
     visitor.setCustomerIDs({
         userid: {
             id: "1234567890",
-            authState: 0
+            authState: AuthState.UNKNOWN
         }
     });
 
