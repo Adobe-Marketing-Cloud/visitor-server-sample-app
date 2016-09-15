@@ -30,7 +30,7 @@ app.get("/", function (req, res) {
     var amcvCookie = cookies.AMCV;
 
     // Visitor ID Payload: Either a SDID if no AMCV, othewise parse the cookie content into an object.
-    var visitorPayload = visitor.generateVisitorPayload(amcvCookie);
+    var visitorPayload = visitor.generatePayload("test-consumer-A", amcvCookie);
     // TODO Here: Make Target call by passing the visitor payload.
 
     var serverState = visitor.getState();
