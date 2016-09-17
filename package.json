@@ -17,6 +17,7 @@
     "express": "^4.14.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
+    "request": "^2.74.0",
     "visitor-js-server": "file:../visitor-js-server"
   },
   "devDependencies": {

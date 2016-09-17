@@ -1,6 +1,6 @@
 const React = require("react");
 
-const Home = ({ serverState, payload }) => {
+const Home = ({ serverState, payload, content }) => {
     serverState = JSON.parse(serverState);
     payload = JSON.parse(payload);
 
@@ -12,13 +12,15 @@ const Home = ({ serverState, payload }) => {
             </head>
             <body>
                 <div>
-                    <h1>Server Side Rendering!</h1>
-                    
+                    <h2>Server Side Rendering!</h2>
                     <h3>Visitor JS Server State:</h3>
                     <pre>{JSON.stringify(serverState, null, 4)}</pre>
                     <br/>
                     <h3>Visitor JS Server Payload:</h3>
                     <pre>{JSON.stringify(payload, null, 4)}</pre>
+                    <br/>
+                    <h3>Targeted Content:</h3>
+                    <pre>{content}</pre>
                 </div>
 
                 <script src="/js/VisitorAPI.js" />
