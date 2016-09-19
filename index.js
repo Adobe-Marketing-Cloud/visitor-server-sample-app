@@ -14,7 +14,7 @@ var HomeComponent = React.createFactory(require("./components/home.jsx"));
 var Visitor = require("visitor-js-server");
 var AuthState = Visitor.AuthState;
 
-var visitor = new Visitor("12345sampleapp");
+var visitor = new Visitor("9E1005A551ED61CA0A490D45@AdobeOrg");
 
 const PORT = process.env.PORT || 5000;
 

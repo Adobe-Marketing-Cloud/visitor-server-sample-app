@@ -25,8 +25,10 @@ const Home = ({ serverState, payload, content }) => {
 
                 <script src="/js/VisitorAPI.js" />
                 <script dangerouslySetInnerHTML={{__html: `
-                    var orgId = '12345667898765432';
-                    var visitor = Visitor.getInstance(orgId);
+                    var orgId = '9E1005A551ED61CA0A490D45';
+                    var visitor = Visitor.getInstance(orgId, {
+                        serverState: ` + JSON.stringify(serverState) + `
+                    });
                     console.log(visitor);
                     console.log(` + JSON.stringify(payload) + `);
                 `}} />
