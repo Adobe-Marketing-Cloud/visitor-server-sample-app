@@ -11,7 +11,7 @@ var React = require("react");
 var ReactDOMServer = require("react-dom/server");
 var HomeComponent = React.createFactory(require("./components/home.jsx"));
 
-var Visitor = require("visitor-js-server");
+var Visitor = require("@adobe-mcid/visitor-js-server");
 var AuthState = Visitor.AuthState;
 
 var visitor = new Visitor("9E1005A551ED61CA0A490D45@AdobeOrg");
