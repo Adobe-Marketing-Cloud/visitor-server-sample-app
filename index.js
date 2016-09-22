@@ -57,7 +57,8 @@ function fetchTargetedContent(payload, callback) {
 
 app.get("/", function (req, res) {
     var cookies = cookie.parse(req.headers.cookie || "");
-    var amcvCookie = cookies.AMCV;
+    var cookieName = visitor.getCookieName();
+    var amcvCookie = cookies[cookieName];
 
     // 1. Set custom Customer IDS:
     visitor.setCustomerIDs({
@@ -69,7 +70,7 @@ app.get("/", function (req, res) {
 
 
     // 2. Generate Visitor Payload by passing consumerID and AMCV Cookie:
-    var visitorPayload = visitor.generatePayload("test-consumer-A", amcvCookie);
+    var visitorPayload = visitor.generatePayload({ consumerID: "test-consumer-A", amcvCookie: amcvCookie });
 
     // 3. Call target by mixin in Visitor Payload with other info needed by Target API call:
     fetchTargetedContent(visitorPayload, function (content) {
@@ -80,7 +81,7 @@ app.get("/", function (req, res) {
         // MOCK: Create AMCV cookie! This would be done by the VisitorAPI.js client side!!
         if (!amcvCookie) {
             var oneWeekInSecond = 60 * 60 * 24 * 7;
-            res.cookie("AMCV", "MCMID-2167743609|1234|MCAAMB|abcd1234|MCAAMLH|9", { maxAge: oneWeekInSecond });
+            res.cookie(cookieName, "MCMID-2167743609|1234|MCAAMB|abcd1234|MCAAMLH|9", { maxAge: oneWeekInSecond });
         }
 
         res.set({
