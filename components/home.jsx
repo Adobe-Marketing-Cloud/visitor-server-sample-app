@@ -24,13 +24,15 @@ const Home = ({ serverState, payload, content }) => {
                 </div>
 
                 <script src="/js/VisitorAPI.js" />
+                {/* Share Visitor state with client side VisitorAPI: */}
                 <script dangerouslySetInnerHTML={{__html: `
                     var orgId = '9E1005A551ED61CA0A490D45';
                     var visitor = Visitor.getInstance(orgId, {
                         serverState: ` + JSON.stringify(serverState) + `
                     });
                     console.log(visitor);
-                    console.log(` + JSON.stringify(payload) + `);
+                    console.log('Payload:', ` + JSON.stringify(payload) + `);
+                    console.log('Server State:', ` + JSON.stringify(serverState) + `);
                 `}} />
             </body>
         </html>
