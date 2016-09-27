@@ -9,6 +9,17 @@ const Home = ({ serverState, payload, content }) => {
             <head>
                 <title>Visitor JS Server Sample APP</title>
                 <link rel="stylesheet" href="/css/styles.css" />
+                <script src="/js/VisitorAPI.js" />
+                {/* Share Visitor state with client side VisitorAPI: */}
+                <script dangerouslySetInnerHTML={{__html: `
+                    var orgId = '9E1005A551ED61CA0A490D45';
+                    var visitor = Visitor.getInstance(orgId, {
+                        serverState: ` + JSON.stringify(serverState) + `
+                    });
+                    console.log(visitor);
+                    console.log('Payload:', ` + JSON.stringify(payload) + `);
+                    console.log('Server State:', ` + JSON.stringify(serverState) + `);
+                `}} />
             </head>
             <body>
                 <div>
@@ -22,18 +33,6 @@ const Home = ({ serverState, payload, content }) => {
                     <h3>Targeted Content:</h3>
                     <pre>{content}</pre>
                 </div>
-
-                <script src="/js/VisitorAPI.js" />
-                {/* Share Visitor state with client side VisitorAPI: */}
-                <script dangerouslySetInnerHTML={{__html: `
-                    var orgId = '9E1005A551ED61CA0A490D45';
-                    var visitor = Visitor.getInstance(orgId, {
-                        serverState: ` + JSON.stringify(serverState) + `
-                    });
-                    console.log(visitor);
-                    console.log('Payload:', ` + JSON.stringify(payload) + `);
-                    console.log('Server State:', ` + JSON.stringify(serverState) + `);
-                `}} />
             </body>
         </html>
     );

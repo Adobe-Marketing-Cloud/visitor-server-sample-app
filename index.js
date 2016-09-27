@@ -31,6 +31,7 @@ function generatePage(state, payload, content) {
     return html;
 }
 
+// MOCK call to target! Should be implemented by the customer:
 function fetchTargetedContent(payload, callback) {
     
     payload.mbox = "GHS-target-global-mbox";
@@ -45,7 +46,7 @@ function fetchTargetedContent(payload, callback) {
     payload.tntId = "123455";
 
     request({
-        url: "http://adobe.tt.omtrdc.net/rest/v1/mbox/session12345",
+        url: "http://tescostoresltd.tt.omtrdc.net/rest/v1/mbox/session12345",
         qs: { client: "tescostoresltd" },
         method: "POST",
         json: payload
@@ -69,9 +70,8 @@ app.get("/", function (req, res) {
         }
     });
 
-
     // 3. Generate Visitor Payload by passing consumerID (mbox name/id) and AMCV Cookie if found in Req:
-    var visitorPayload = visitor.generatePayload({ consumerID: "test-consumer-A", amcvCookie: amcvCookie });
+    var visitorPayload = visitor.generatePayload({ consumerID: "GHS-target-global-mbox", amcvCookie: amcvCookie });
 
     // 4. Call target by mixing in Visitor Payload with other info needed by Target API call:
     fetchTargetedContent(visitorPayload, function (content) {
