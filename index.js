@@ -71,15 +71,16 @@ app.get("/", function (req, res) {
         }
     });
 
-    // 3. Generate Visitor Payload by passing consumerID (mbox name/id) and AMCV Cookie if found in Req:
+    // 4. Generate Visitor Payload by passing consumerID (mbox name/id) and AMCV Cookie if found in Req:
     var visitorPayload = visitor.generatePayload({ consumerID: "GHS-target-global-mbox", amcvCookie: amcvCookie });
 
-    // 4. Call target by mixing in Visitor Payload with other info needed by Target API call:
+    // 5. Call target by mixing in Visitor Payload with other info needed by Target API call:
     fetchTargetedContent(visitorPayload, function (content) {
 
-        // 5. Get Visitor's state and share it with the client side VisitorAPI library:
+        // 6. Get Visitor's state and share it with the client side VisitorAPI library:
         var serverState = visitor.getState();
 
+        // NOTE: Open /components/Home.jsx and look at the script tags in the head.
         var pageHtml = generatePage(stringify(serverState), stringify(visitorPayload), content);
         
         // MOCK: Create AMCV cookie! This would be done by the VisitorAPI.js client side!!
@@ -99,5 +100,5 @@ app.get("/", function (req, res) {
 });
 
 app.listen(PORT, function () {
-    console.log("Visitor Server Sample App is Running on port", PORT);
+    console.log("Visitor Server Sample App is Running on Port", PORT);
 });
