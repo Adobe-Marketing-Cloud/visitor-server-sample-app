@@ -6,6 +6,7 @@ var cookie = require("cookie");
 var request = require("request");
 var express = require("express");
 var app = express();
+var config = require("./config.json");
 
 var React = require("react");
 var ReactDOMServer = require("react-dom/server");
@@ -37,17 +38,17 @@ function fetchTargetedContent(payload, callback) {
     payload.mbox = "GHS-target-global-mbox";
     
     payload.requestLocation = {
-        "pageURL" : "http://www.tesco.com/groceries/delivery/?test=1",
+        "pageURL" : config.pageURL,
         "impressionId" : "1",
-        "host" : "www.tesco.com"
+        "host" : config.host
     };
 
     payload.thirdPartyId = "2047337005";
     payload.tntId = "123455";
 
     request({
-        url: "http://tescostoresltd.tt.omtrdc.net/rest/v1/mbox/session12345",
-        qs: { client: "tescostoresltd" },
+        url: config.url,
+        qs: config.qs,
         method: "POST",
         json: payload
     }, function (error, response, body) {

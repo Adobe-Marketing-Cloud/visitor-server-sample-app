@@ -1,0 +1,6 @@
+{
+    "pageURL": "http://www.tesco.com/groceries/delivery/?test=1",
+    "host" : "www.tesco.com",
+    "url": "http://tescostoresltd.tt.omtrdc.net/rest/v1/mbox/session12345",
+    "qs": { "client": "tescostoresltd" }
+}
