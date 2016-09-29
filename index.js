@@ -71,8 +71,8 @@ app.get("/", function (req, res) {
         }
     });
 
-    // 4. Generate Visitor Payload by passing consumerID (mbox name/id) and AMCV Cookie if found in Req:
-    var visitorPayload = visitor.generatePayload({ consumerID: "GHS-target-global-mbox", amcvCookie: amcvCookie });
+    // 4. Generate Visitor Payload by passing sdidConsumerID (mbox name/id) and AMCV Cookie if found in Req:
+    var visitorPayload = visitor.generatePayload({ sdidConsumerID: "GHS-target-global-mbox", amcvCookie: amcvCookie });
 
     // 5. Call target by mixing in Visitor Payload with other info needed by Target API call:
     fetchTargetedContent(visitorPayload, function (content) {
