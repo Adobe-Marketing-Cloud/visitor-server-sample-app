@@ -18,34 +18,28 @@ module.exports = function fetchTargetedContent(visitor, amcvCookie, callback) {
     var payloads = {};
 
     function createRequestFor(mboxName) {
-        // 4. Generate Visitor Payload by passing sdidConsumerID (mbox name/id) and AMCV Cookie if found in Req:
-        var visitorPayload = visitor.generatePayload({ 
-            sdidConsumerID: mboxName,
-            amcvCookie: amcvCookie 
-        });
+        return function () {
+            // 4. Generate Visitor Payload by passing sdidConsumerID (mbox name/id) and AMCV Cookie if found in Req:
+            var visitorPayload = visitor.generatePayload({ 
+                sdidConsumerID: mboxName,
+                amcvCookie: amcvCookie 
+            });
 
-        var fullPayload = Object.assign({}, targetPayload, { mbox: mboxName}, visitorPayload);
-        payloads[mboxName] = fullPayload; 
+            var fullPayload = Object.assign({}, targetPayload, { mbox: mboxName}, visitorPayload);
+            payloads[mboxName] = fullPayload; 
 
-        return reqPromise({
-            url: config.url,
-            qs: config.qs,
-            method: "POST",
-            json: fullPayload
-        });
+            return reqPromise({
+                url: config.url,
+                qs: config.qs,
+                method: "POST",
+                json: fullPayload
+            });
+        };
     }
 
-    function fetchTopLeftBanner() {
-        return createRequestFor("adobe-top-left-banner-mbox");
-    }
-    
-    function fetchCenterBanner() {
-        return createRequestFor("adobe-center-body-banner-mbox");
-    }
-
-    function fetchBottomRightNav() {
-        return createRequestFor("adobe-bottom-right-nav-mbox");
-    }
+    var fetchTopLeftBanner = createRequestFor("adobe-top-left-banner-mbox");
+    var fetchCenterBanner = createRequestFor("adobe-center-body-banner-mbox");
+    var fetchBottomRightNav = createRequestFor("adobe-bottom-right-nav-mbox");
     
     return Promise.all([fetchTopLeftBanner(), fetchCenterBanner(), fetchBottomRightNav()])
                 .then((content) => {
