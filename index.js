@@ -3,14 +3,13 @@ require("babel-register")({
 });
 
 var cookie = require("cookie");
-var request = require("request");
 var express = require("express");
 var app = express();
-var config = require("./config.json");
 
 var React = require("react");
 var ReactDOMServer = require("react-dom/server");
 var HomeComponent = React.createFactory(require("./components/home.jsx"));
+var fetchTargetedContent = require("./fetchTargetedContent");
 
 // 1. Require Visitor:
 var Visitor = require("@adobe-mcid/visitor-js-server");
@@ -32,30 +31,6 @@ function generatePage(state, payload, content) {
     return html;
 }
 
-// MOCK call to target! Should be implemented by the customer:
-function fetchTargetedContent(payload, callback) {
-    
-    payload.mbox = "GHS-target-global-mbox";
-    
-    payload.requestLocation = {
-        "pageURL" : config.pageURL,
-        "impressionId" : "1",
-        "host" : config.host
-    };
-
-    payload.thirdPartyId = "2047337005";
-    payload.tntId = "123455";
-
-    request({
-        url: config.url,
-        qs: config.qs,
-        method: "POST",
-        json: payload
-    }, function (error, response, body) {
-        callback(body.content);
-    });
-}
-
 app.get("/", function (req, res) {
     // 2. Instantiate Visitor by passing your Org ID:
     var visitor = new Visitor("9E1005A551ED61CA0A490D45@AdobeOrg");
@@ -71,17 +46,14 @@ app.get("/", function (req, res) {
         }
     });
 
-    // 4. Generate Visitor Payload by passing sdidConsumerID (mbox name/id) and AMCV Cookie if found in Req:
-    var visitorPayload = visitor.generatePayload({ sdidConsumerID: "GHS-target-global-mbox", amcvCookie: amcvCookie });
-
     // 5. Call target by mixing in Visitor Payload with other info needed by Target API call:
-    fetchTargetedContent(visitorPayload, function (content) {
+    fetchTargetedContent(visitor, amcvCookie, function (content) {
 
         // 6. Get Visitor's state and share it with the client side VisitorAPI library:
         var serverState = visitor.getState();
 
         // NOTE: Open /components/Home.jsx and look at the script tags in the head.
-        var pageHtml = generatePage(stringify(serverState), stringify(visitorPayload), content);
+        var pageHtml = generatePage(stringify(serverState), stringify(content.payloads), content);
         
         // MOCK: Create AMCV cookie! This would be done by the VisitorAPI.js client side!!
         if (!amcvCookie) {

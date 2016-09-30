@@ -27,11 +27,13 @@ const Home = ({ serverState, payload, content }) => {
                     <h3>Visitor JS Server State:</h3>
                     <pre>{JSON.stringify(serverState, null, 4)}</pre>
                     <br/>
-                    <h3>Visitor JS Server Payload:</h3>
+                    <h3>Visitor JS Server Payloads used to fetch the 3 Targeted Contents:</h3>
                     <pre>{JSON.stringify(payload, null, 4)}</pre>
                     <br/>
                     <h3>Targeted Content:</h3>
-                    <pre>{content}</pre>
+                    <pre>TOP LEFT: {content.topLeft}</pre>
+                    <pre>CENTER: {content.center}</pre>
+                    <pre>BOTTOM RIGHT: {content.bottomRight}</pre>
                 </div>
             </body>
         </html>
