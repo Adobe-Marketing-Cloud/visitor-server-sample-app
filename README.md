@@ -10,6 +10,9 @@ An isomorphic sample app that implements `@adobe-mcid/visitor-js-server`.
 - Implement the optional `Visitor#setCustomerIDs` to add custom IDs
 - Implement `Visitor#getState` to share Visitor state on the server with the client side VisitorAPI library. In this app we are showing the manual implementation of sharing the state. There's a DTM specific implementation below.
 - We share the state with the client side VisitorAPI library to allow stitching the server-side Target call with the client-side Analytics hit.
+- Makes multiple calls to Target for multiple mboxes.
+
+Pull this following branch for a single Target call sample: `feature/single-target-call`
 
 
 ## Share state with client side VisitorAPI if using DTM
