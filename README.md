@@ -30,4 +30,6 @@ And configure DTM to add a new setting:
 
 ## Run application
 
-Enter `npm run start` in your terminal, open your browser and go to localhost:5000
+git clone git@github.com:Adobe-Marketing-Cloud/visitor-server-sample-app.git
+
+`npm run start` in your terminal, open your browser and go to localhost:5000

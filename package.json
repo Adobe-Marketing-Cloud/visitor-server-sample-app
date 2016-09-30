@@ -7,8 +7,8 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Adobe ID Service team",
+  "license": "Apache-2.0",
   "engines": {
     "node": "6.2.2"
   },
