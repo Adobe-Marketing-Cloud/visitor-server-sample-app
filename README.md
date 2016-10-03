@@ -4,7 +4,7 @@ An isomorphic sample app that implements `@adobe-mcid/visitor-js-server`.
 
 ## Features:
 
-- Generate page on the server (Using React to render the UI)
+- Generate page on the server
 - Implement Adobe Target server side to generate targeted content
 - Implement `Visitor#generatePayload` to generate a stitch ID on the server
 - Implement the optional `Visitor#setCustomerIDs` to add custom IDs
