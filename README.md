@@ -12,8 +12,6 @@ An isomorphic sample app that implements `@adobe-mcid/visitor-js-server`.
 - We share the state with the client side VisitorAPI library to allow stitching the server-side Target call with the client-side Analytics hit.
 - Makes multiple calls to Target for multiple mboxes.
 
-Pull this following branch for a single Target call sample: `feature/single-target-call`
-
 
 ## Share state with client side VisitorAPI if using DTM
 
