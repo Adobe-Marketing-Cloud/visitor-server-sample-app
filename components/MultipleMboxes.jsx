@@ -41,7 +41,14 @@ const MultipleMboxes = ({ serverState, payload, content }) => {
                     <pre>{JSON.stringify(payload, null, 4)}</pre>
                     <br/>
                     <h3>Targeted Content:</h3>
-                    <pre>{content}</pre>
+                    {content.map(function (c) {
+                        return (
+                            <div>
+                                <span>{c.name}</span>
+                                <pre>{c.html}</pre>
+                            </div>
+                        );
+                    })}
                 </div>
             </body>
         </html>

@@ -46,8 +46,12 @@ module.exports = function fetchMultipleMboxes(visitor, amcvCookie, callback) {
                 json: fullPayload
             })
             .then((content) => {
-                callback(content.mboxResponses);
-            }).catch(function (err) {
+                callback({
+                    content: content.mboxResponses,
+                    payload: fullPayload
+                });
+            })
+            .catch(function (err) {
                 console.error("An error has occured fetching multiple mboxes:", err);
             });
 }

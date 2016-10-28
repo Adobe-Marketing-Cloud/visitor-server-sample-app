@@ -37,6 +37,7 @@ const Home = ({ serverState, payload, content }) => {
             </head>
             <body>
                 <div>
+                    <a href="/multiple">Batch Request</a>
                     <h2>Server Side Rendering!</h2>
                     <h3>Visitor JS Server State:</h3>
                     <pre>{JSON.stringify(serverState, null, 4)}</pre>

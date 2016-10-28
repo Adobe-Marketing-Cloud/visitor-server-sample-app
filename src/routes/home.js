@@ -3,7 +3,6 @@ require("babel-register")({
 });
 
 var React = require("react");
-var ReactDOMServer = require("react-dom/server");
 var HomeComponent = React.createFactory(require("../../components/home.jsx"));
 
 var cookie = require("cookie");
@@ -13,17 +12,10 @@ var fetchTargetedContent = require("../gateways/fetchTargetedContent");
 var Visitor = require("@adobe-mcid/visitor-js-server");
 var AuthState = Visitor.AuthState; // AuthState enum to be used to set Customer IDS.
 
-function stringify(obj) {
-    return obj ? JSON.stringify(obj) : "";
-}
+var stringify = require("../utils").stringify;
+var generatePage = require("../utils").generatePage;
 
-function generatePage(state, payload, content) {
-    var html = ReactDOMServer.renderToString(
-        React.createElement(HomeComponent, { serverState: state, payload, content })
-    );
-    
-    return html;
-}
+var generateHomePage = generatePage(HomeComponent);
 
 module.exports = function homeRoute(req, res) {
     // 2. Instantiate Visitor by passing your Org ID:
@@ -47,7 +39,7 @@ module.exports = function homeRoute(req, res) {
         var serverState = visitor.getState();
 
         // NOTE: Open /components/Home.jsx and look at the script tags in the head.
-        var pageHtml = generatePage(stringify(serverState), stringify(content.payloads), content);
+        var pageHtml = generateHomePage(stringify(serverState), stringify(content.payloads), content);
         
         // MOCK: Create AMCV cookie! This would be done by the VisitorAPI.js client side!!
         if (!amcvCookie) {
