@@ -19,13 +19,14 @@ require("babel-register")({
 var express = require("express");
 var app = express();
 var homeRoute = require("./src/routes/home");
-
+var multipleMboxesRoute = require("./src/routes/multipleMboxes");
 
 const PORT = process.env.PORT || 5000;
 
 app.use(express.static("public"));
 
 app.get("/", homeRoute);
+app.get("/multiple", multipleMboxesRoute);
 
 app.listen(PORT, function () {
     console.log("Visitor Server Sample App is Running on Port", PORT);
