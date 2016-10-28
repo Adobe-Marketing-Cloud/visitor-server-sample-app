@@ -13,39 +13,39 @@
  * limitations under the License.
  */
 var reqPromise = require('request-promise');
-var config = require("./config.json");
+var config = require("../../config.json");
 
 // MOCK call to target! Should be implemented by the customer. Make sure to update config.js
 // with your own information.
 module.exports = function fetchMultipleMboxes(visitor, amcvCookie, callback) {
+    
+    // TODO: Create a new API "Visitor#generatePayloadForBatch" so that customers don't have to add `mboxParameters` to every mboxRequest. (Line 34-36)
+    var visitorPayload = visitor.generatePayload({ 
+        sdidConsumerID: "servertesco",
+        amcvCookie: amcvCookie 
+    });
+
     var targetPayload = {
         thirdPartyId: "2047337005",
         tntId: "123455",
         imsOrgId: "E4860C0F53CE56C40A490D45@AdobeOrg",
         apiClientId: "tescostoresltd",
         mboxRequests: [
-            Object.assign({ name: "adobe-top-left-banner-mbox" }, visitorPayload),
-            { name:  "adobe-center-body-banner-mbox" },
-            { name: "adobe-bottom-right-nav-mbox" }
+            { name: "adobe-top-left-banner-mbox", mboxParameters: visitorPayload.mboxParameters },
+            { name:  "adobe-center-body-banner-mbox", mboxParameters: visitorPayload.mboxParameters },
+            { name: "adobe-bottom-right-nav-mbox", mboxParameters: visitorPayload.mboxParameters }
         ]
     };
 
-    var visitorPayload = visitor.generatePayload({ 
-        sdidConsumerID: "servertesco",
-        amcvCookie: amcvCookie 
-    });
+    var fullPayload = Object.assign({}, targetPayload, { marketingCloudVisitorId: visitorPayload.marketingCloudVisitorId });
 
-    // var fullPayload = Object.assign({}, targetPayload, visitorPayload);
-
-    
     return reqPromise({
                 url: config.batchUrl,
                 qs: config.qs,
                 method: "POST",
-                json: targetPayload
+                json: fullPayload
             })
             .then((content) => {
-                console.log("THEN:", content.mboxResponses)
                 callback(content.mboxResponses);
             }).catch(function (err) {
                 console.error("An error has occured fetching multiple mboxes:", err);
