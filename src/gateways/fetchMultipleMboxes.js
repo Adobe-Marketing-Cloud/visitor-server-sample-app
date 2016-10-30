@@ -19,25 +19,23 @@ var config = require("../../config.json");
 // with your own information.
 module.exports = function fetchMultipleMboxes(visitor, amcvCookie, callback) {
     
-    // TODO: Create a new API "Visitor#generatePayloadForBatch" so that customers don't have to add `mboxParameters` to every mboxRequest. (Line 34-36)
-    var visitorPayload = visitor.generatePayload({ 
+    // Use new `visitor.generateBatchPayload` to generate a payload compatible with Target Batch API:
+    var visitorPayload = visitor.generateBatchPayload({ 
         sdidConsumerID: "servertesco",
-        amcvCookie: amcvCookie 
+        amcvCookie: amcvCookie,
+        mboxNames: [
+            "adobe-top-left-banner-mbox", "adobe-center-body-banner-mbox", "adobe-bottom-right-nav-mbox"
+        ]
     });
 
     var targetPayload = {
         thirdPartyId: "2047337005",
         tntId: "123455",
         imsOrgId: "E4860C0F53CE56C40A490D45@AdobeOrg",
-        apiClientId: "tescostoresltd",
-        mboxRequests: [
-            { name: "adobe-top-left-banner-mbox", mboxParameters: visitorPayload.mboxParameters },
-            { name:  "adobe-center-body-banner-mbox", mboxParameters: visitorPayload.mboxParameters },
-            { name: "adobe-bottom-right-nav-mbox", mboxParameters: visitorPayload.mboxParameters }
-        ]
+        apiClientId: "tescostoresltd"
     };
 
-    var fullPayload = Object.assign({}, targetPayload, { marketingCloudVisitorId: visitorPayload.marketingCloudVisitorId });
+    var fullPayload = Object.assign({}, targetPayload, visitorPayload);
 
     return reqPromise({
                 url: config.batchUrl,
