@@ -3,5 +3,9 @@
     "host" : "www.tesco.com",
     "url": "http://tescostoresltd.tt.omtrdc.net/rest/v1/mbox/session12345",
     "qs": { "client": "tescostoresltd" },
-    "batchUrl": "http://tescostoresltd.tt.omtrdc.net/rest/v1/batchmbox"
+    "batchUrl": "http://tescostoresltd.tt.omtrdc.net/rest/v1/batchmbox",
+    "imsOrgID": "35860E205658606B7F000101@AdobeOrg",
+    "apiClientId": "adobeinternalags060",
+    "enableDTM": false,
+    "dtmTagUrl": "//assets.adobedtm.com/25d3b3d1c4f2da0e2eb690bb89f580fe6deaca2f/satelliteLib-99641b5d9c40ba131f69b37f069dc7a724de099f-staging.js"
 }
