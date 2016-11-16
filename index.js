@@ -16,17 +16,28 @@ require("babel-register")({
     presets: ["react"]
 });
 
+var React = require("react");
 var express = require("express");
 var app = express();
-var homeRoute = require("./src/routes/home");
-var multipleMboxesRoute = require("./src/routes/multipleMboxes");
+var makeHomeRoute = require("./src/routes/home");
+var makeMultipleMboxesRoute = require("./src/routes/multipleMboxes");
+var HeadWithDTM = React.createFactory(require("./components/HeadWithDTM.jsx"));
+var HeadWithVisitorAPI = React.createFactory(require("./components/HeadWithVisitorAPI.jsx"));
 
 const PORT = process.env.PORT || 5000;
+const VISITORAPI_URL = "/js/VisitorAPI.js";
 
 app.use(express.static("public"));
 
-app.get("/", homeRoute);
-app.get("/multiple", multipleMboxesRoute);
+// NOTE: Check config.json to figure out if we are using DTM or not.
+
+// TODO Move to factory!
+var config = require("./config.json");
+var scriptURL = config.enableDTM ? config.dtmTagUrl : VISITORAPI_URL;
+var HeadComponent = config.enableDTM ? HeadWithDTM : HeadWithVisitorAPI
+
+app.get("/", makeHomeRoute(HeadComponent, scriptURL));
+app.get("/multiple", makeMultipleMboxesRoute(HeadComponent, scriptURL));
 
 app.listen(PORT, function () {
     console.log("Visitor Server Sample App is Running on Port", PORT);
