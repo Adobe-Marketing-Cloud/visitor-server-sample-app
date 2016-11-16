@@ -31,8 +31,8 @@ module.exports = function fetchMultipleMboxes(visitor, amcvCookie, callback) {
     var targetPayload = {
         thirdPartyId: "2047337005",
         tntId: "123455",
-        imsOrgId: "E4860C0F53CE56C40A490D45@AdobeOrg",
-        apiClientId: "tescostoresltd"
+        imsOrgId: config.imsOrgID,
+        apiClientId: config.apiClientId
     };
 
     var fullPayload = Object.assign({}, targetPayload, visitorPayload);

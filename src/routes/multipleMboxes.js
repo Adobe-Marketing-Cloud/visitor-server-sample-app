@@ -5,22 +5,23 @@ var cookie = require("cookie");
 var MultipleMboxesComponent = React.createFactory(require("../../components/MultipleMboxes.jsx"));
 var fetchMultipleMboxes = require("../gateways/fetchMultipleMboxes");
 
+var config = require("../../config.json");
+
 var stringify = require("../utils").stringify;
 var generatePage = require("../utils").generatePage;
-
-var generateMultipleMboxesPage = generatePage(MultipleMboxesComponent);
-
 
 // 1. Require Visitor:
 var Visitor = require("@adobe-mcid/visitor-js-server");
 
-module.exports = function multipleMboxesRoute(req, res) {
+module.exports = (HeadComponent, scriptUrl) => (req, res) => {
     // 2. Instantiate Visitor by passing your Org ID:
-    var visitor = new Visitor("9E1005A551ED61CA0A490D45@AdobeOrg");
+    var visitor = new Visitor(config.imsOrgID);
     var cookies = cookie.parse(req.headers.cookie || "");
     var cookieName = visitor.getCookieName();
     var amcvCookie = cookies[cookieName];
 
+    var generateMultipleMboxesPage = generatePage(MultipleMboxesComponent, HeadComponent, scriptUrl);
+    
     fetchMultipleMboxes(visitor, amcvCookie, function (mboxes) {
         var pageContent = "No targeted content found!";
         var mboxResponses = mboxes.content;
@@ -32,7 +33,7 @@ module.exports = function multipleMboxesRoute(req, res) {
             pageContent = mboxResponses.reduce(function (c, mbox) {
                 var offer = { name: mbox.name };
                 
-                if (mbox.offers[0]) {
+                if (mbox.offers && mbox.offers[0]) {
                     offer.html = mbox.offers[0].html;
                 }
                 

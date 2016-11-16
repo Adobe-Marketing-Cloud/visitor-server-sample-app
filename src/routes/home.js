@@ -8,6 +8,8 @@ var HomeComponent = React.createFactory(require("../../components/home.jsx"));
 var cookie = require("cookie");
 var fetchTargetedContent = require("../gateways/fetchTargetedContent");
 
+var config = require("../../config.json");
+
 // 1. Require Visitor:
 var Visitor = require("@adobe-mcid/visitor-js-server");
 var AuthState = Visitor.AuthState; // AuthState enum to be used to set Customer IDS.
@@ -15,14 +17,14 @@ var AuthState = Visitor.AuthState; // AuthState enum to be used to set Customer 
 var stringify = require("../utils").stringify;
 var generatePage = require("../utils").generatePage;
 
-var generateHomePage = generatePage(HomeComponent);
-
-module.exports = function homeRoute(req, res) {
+module.exports = (HeadComponent, scriptUrl) => (req, res) => {
     // 2. Instantiate Visitor by passing your Org ID:
-    var visitor = new Visitor("9E1005A551ED61CA0A490D45@AdobeOrg");
+    var visitor = new Visitor(config.imsOrgID);
     var cookies = cookie.parse(req.headers.cookie || "");
     var cookieName = visitor.getCookieName();
     var amcvCookie = cookies[cookieName];
+
+    var generateHomePage = generatePage(HomeComponent, HeadComponent, scriptUrl);
 
     // 3. Optionally, set custom Customer IDS:
     visitor.setCustomerIDs({

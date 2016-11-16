@@ -14,24 +14,12 @@
  */
 const React = require("react");
 
-const MultipleMboxes = ({ serverState, payload, content }) => {
-    serverState = JSON.parse(serverState);
+const MultipleMboxes = ({ serverState, payload, content, Head, scriptURL }) => {
     payload = JSON.parse(payload);
 
     return (
         <html>
-            <head>
-                <title>Visitor JS Server Sample APP</title>
-                <link rel="stylesheet" href="/css/styles.css" />
-                <script src="/js/VisitorAPI.js" />
-                {/* Share Visitor state with client side VisitorAPI: */}
-                <script dangerouslySetInnerHTML={{__html: `
-                    var orgId = '9E1005A551ED61CA0A490D45';
-                    var visitor = Visitor.getInstance(orgId, {
-                        serverState: ` + JSON.stringify(serverState) + `
-                    });
-                `}} />
-            </head>
+            <Head scriptURL={scriptURL} serverState={serverState} />
             <body>
                 <div>
                     <a href="/">Back</a>
