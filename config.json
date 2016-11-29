@@ -4,8 +4,8 @@
     "url": "http://tescostoresltd.tt.omtrdc.net/rest/v1/mbox/session12345",
     "qs": { "client": "tescostoresltd" },
     "batchUrl": "http://tescostoresltd.tt.omtrdc.net/rest/v1/batchmbox",
-    "imsOrgID": "35860E205658606B7F000101@AdobeOrg",
-    "apiClientId": "adobeinternalags060",
+    "imsOrgID": "E4860C0F53CE56C40A490D45@AdobeOrg",
+    "apiClientId": "tescostoresltd",
     "enableDTM": false,
-    "dtmTagUrl": "//assets.adobedtm.com/25d3b3d1c4f2da0e2eb690bb89f580fe6deaca2f/satelliteLib-99641b5d9c40ba131f69b37f069dc7a724de099f-staging.js"
+    "dtmTagUrl": "//assets.adobedtm.com/07f4803ba7577af91bd0d0bb989cce05e8f2a5c8/satelliteLib-b578682bd4d7bf12c819937b10c166e5135d4e2a-staging.js"
 }
