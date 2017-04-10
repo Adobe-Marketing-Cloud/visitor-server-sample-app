@@ -1,11 +1,11 @@
 {
-    "pageURL": "http://www.tesco.com/groceries/delivery/?test=1",
-    "host" : "www.tesco.com",
-    "url": "http://tescostoresltd.tt.omtrdc.net/rest/v1/mbox/session12345",
-    "qs": { "client": "tescostoresltd" },
-    "batchUrl": "http://tescostoresltd.tt.omtrdc.net/rest/v1/batchmbox",
-    "imsOrgID": "E4860C0F53CE56C40A490D45@AdobeOrg",
-    "apiClientId": "tescostoresltd",
+    "pageURL": "",
+    "host" : "",
+    "url": "",
+    "qs": { "client": "" },
+    "batchUrl": "",
+    "imsOrgID": "",
+    "apiClientId": "",
     "enableDTM": false,
-    "dtmTagUrl": "//assets.adobedtm.com/07f4803ba7577af91bd0d0bb989cce05e8f2a5c8/satelliteLib-b578682bd4d7bf12c819937b10c166e5135d4e2a-staging.js"
+    "dtmTagUrl": ""
 }
